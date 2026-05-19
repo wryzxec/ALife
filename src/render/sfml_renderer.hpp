@@ -8,15 +8,16 @@
 
 class SFMLRenderer : public Renderer {
 public:
-    SFMLRenderer(size_t rows, size_t cols, unsigned int cellSize = 10);
+    SFMLRenderer(size_t windowRows, size_t windowCols, unsigned int cellSize = 10);
     void render(const ALife& sim) override;
     void handleEvents() override;
     bool isOpen() const override;
 private:
-    size_t _rows;
-    size_t _cols;
+    size_t _windowRows;
+    size_t _windowCols;
     unsigned int _cellSize;
 
     sf::RenderWindow _window;
     sf::RectangleShape _cell;
+    sf::RectangleShape _border;
 };
