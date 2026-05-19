@@ -88,5 +88,4 @@ void SFMLRenderer::render(const ALife& sim) {
     _window.draw(_border);
 
     _window.display();
-    sf::sleep(sf::milliseconds(100));
 }

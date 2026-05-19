@@ -1,3 +1,5 @@
+#include <thread>
+#include <chrono>
 #include <utility>
 
 #include "app.hpp"
@@ -15,5 +17,6 @@ void App::run() {
         _renderer->handleEvents();
         _simulation->step();
         _renderer->render(*_simulation);
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
 }
