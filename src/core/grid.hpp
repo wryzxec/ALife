@@ -21,7 +21,7 @@ public:
     Grid(size_t rows, size_t cols, size_t channels = 1) : 
         _rows{rows}, _cols{cols}, 
         _channels{channels}, 
-        _data{rows*cols*channels} 
+        _data(rows*cols*channels)
     {}
     
     T& operator()(size_t row, size_t col, size_t channel = 0) {
