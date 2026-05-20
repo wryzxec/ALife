@@ -14,7 +14,7 @@ public:
     Conway(State initialState)
         : ALife (
             std::move(initialState),
-            std::make_unique<NbrObservation>(),
+            std::make_unique<NbrObservation>(1),
             std::make_unique<ConwayRule>(),
             std::make_unique<DiscreteIntegrator>(),
             std::make_unique<BinaryConstraint>()
