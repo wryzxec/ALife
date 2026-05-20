@@ -1,3 +1,5 @@
+#pragma once
+
 #include "alife/constraint.hpp"
 
 class BinaryConstraint : public Constraint {

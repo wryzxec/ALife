@@ -1,3 +1,5 @@
+#pragma once
+
 #include "alife/updaterule.hpp"
 
 class ConwayRule : public UpdateRule {

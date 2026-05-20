@@ -1,3 +1,5 @@
+#pragma once
+
 #include "alife/integrator.hpp"
 
 class DiscreteIntegrator : public Integrator {
