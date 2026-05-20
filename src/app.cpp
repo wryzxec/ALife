@@ -15,8 +15,8 @@ App::App(
 void App::run() {
     while(_renderer->isOpen()) {
         _renderer->handleEvents();
-        _simulation->step();
         _renderer->render(*_simulation);
+        _simulation->step();
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
 }
