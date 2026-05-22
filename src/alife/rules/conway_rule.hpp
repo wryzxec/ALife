@@ -4,7 +4,7 @@
 
 class ConwayRule : public UpdateRule {
 public:
-    Field apply(const State& state, const Field& nbrCount) {
+    Field apply(const State& state, const Field& nbrCount) override {
         Field next(state.rows(), state.cols(), state.channels());
 
         for(size_t r = 0; r < state.rows(); ++r) {
