@@ -42,6 +42,19 @@ public:
             }
         }
     }
+
+    void randomiseContinuous(double minValue = 0.0, double maxValue = 1.0) {
+        std::mt19937 rng(std::random_device{}());
+        std::uniform_real_distribution dist{minValue, maxValue};
+
+        for(size_t r = 0; r < rows(); ++r) {
+            for(size_t c = 0; c < cols(); ++c) {
+                _grid(r, c) = dist(rng);
+            }
+        }
+
+    }
+
 private:
     Grid<Scalar> _grid;
 };
