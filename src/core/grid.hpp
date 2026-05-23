@@ -36,6 +36,7 @@ public:
     size_t cols() const { return _cols; }
     size_t channels() const { return _channels; }
     size_t size() const { return _data.size(); }
+    const std::vector<T>& data() const { return _data; }
 private:
     size_t index(size_t row, size_t col, size_t channel) const {
         return (row * _cols + col) * _channels + channel;
