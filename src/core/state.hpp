@@ -52,7 +52,29 @@ public:
                 _grid(r, c) = dist(rng);
             }
         }
+    }
 
+    void randomiseContinuousDisc(size_t radius, double minValue, double maxValue) {
+        std::mt19937 rng(std::random_device{}());
+        std::uniform_real_distribution dist{minValue, maxValue};
+
+        const size_t centreRow = rows() / 2;
+        const size_t centreCol = cols() / 2;
+
+        const double radiusSq = static_cast<double>(radius * radius);
+
+        for(size_t r = 0; r < rows(); ++r) {
+            for(size_t c = 0; c < cols(); ++c) {
+                const double dr = static_cast<double>(r) - static_cast<double>(centreRow);
+                const double dc = static_cast<double>(c) - static_cast<double>(centreCol);
+
+                const double distSq = dr * dr + dc * dc;
+
+                if(distSq <= radiusSq) {
+                    _grid(r, c) = dist(rng);
+                }
+            }
+        }
     }
 
 private:
