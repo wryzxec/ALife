@@ -21,6 +21,20 @@ set(SFML_STATIC_LIBRARIES OFF CACHE BOOL "" FORCE)
 
 FetchContent_MakeAvailable(SFML)
 
+# kissfft
+FetchContent_Declare(
+    kissfft
+    GIT_REPOSITORY https://github.com/mborgerding/kissfft
+    GIT_TAG master
+    GIT_SHALLOW true
+)
+set(KISSFFT_TEST OFF CACHE BOOL "" FORCE)
+set(KISSFFT_TOOLS OFF CACHE BOOL "" FORCE)
+set(KISSFFT_PKGCONFIG OFF CACHE BOOL "" FORCE)
+set(KISSFFT_STATIC ON CACHE BOOL "" FORCE)
+
+FetchContent_MakeAvailable(kissfft)
+
 set(CMAKE_CXX_FLAGS "-O3 -Wall -Wextra")
 
 add_executable(alife
@@ -31,6 +45,7 @@ add_executable(alife
 
 target_link_libraries(alife PRIVATE
     SFML::Graphics
+    kissfft
 )
 
 target_include_directories(alife PRIVATE
