@@ -35,6 +35,16 @@ set(KISSFFT_STATIC ON CACHE BOOL "" FORCE)
 
 FetchContent_MakeAvailable(kissfft)
 
+# nhlomann
+FetchContent_Declare(
+    nlohmann_json
+    GIT_REPOSITORY https://github.com/nlohmann/json.git
+    GIT_TAG v3.11.3
+    GIT_SHALLOW true
+)
+
+FetchContent_MakeAvailable(nlohmann_json)
+
 set(CMAKE_CXX_FLAGS "-O3 -Wall -Wextra")
 
 add_executable(alife
@@ -46,6 +56,7 @@ add_executable(alife
 target_link_libraries(alife PRIVATE
     SFML::Graphics
     kissfft
+    nlohmann_json::nlohmann_json
 )
 
 target_include_directories(alife PRIVATE
