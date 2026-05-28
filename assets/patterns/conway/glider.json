@@ -1,0 +1,13 @@
+{
+    "name": "glider",
+    "system": "conway",
+    "desc": "A small spaceship that moves diagonally",
+    "rows": 3,
+    "cols": 3,
+    "channels": 1,
+    "values": [
+        0, 1, 0,
+        0, 0, 1,
+        1, 1, 1
+    ]
+}

@@ -5,7 +5,7 @@
 #include <stdexcept>
 
 #include "core/grid.hpp"
-#include "core/pattern.hpp"
+#include "patterns/pattern.hpp"
 
 /*
  * State is the current world.
