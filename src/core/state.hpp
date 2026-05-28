@@ -2,8 +2,10 @@
 
 #include <cstddef>
 #include <random>
+#include <stdexcept>
 
-#include "grid.hpp"
+#include "core/grid.hpp"
+#include "core/pattern.hpp"
 
 /*
  * State is the current world.
@@ -27,10 +29,6 @@ public:
     const Scalar& operator()(size_t row, size_t col, size_t channel = 0) const {
         return _grid(row, col, channel);
     }
-
-    size_t rows() const { return _grid.rows(); }
-    size_t cols() const { return _grid.cols(); }
-    size_t channels() const { return _grid.channels(); }
 
     void randomiseBinary(double probability) {
         std::mt19937 rng(std::random_device{}());
@@ -76,6 +74,44 @@ public:
             }
         }
     }
+
+    void placePatternAt(const Pattern& pattern, size_t startRow, size_t startCol) {
+        if(pattern.channels() != channels()) {
+            throw std::invalid_argument("Pattern channel count exceeds number of state channels.");
+        }
+
+        if(pattern.rows() > rows() || pattern.cols() > cols()) {
+            throw std::invalid_argument("Pattern dimensions are larger than state dimensions.");
+        }
+
+        if(startRow > rows() - pattern.rows() || startCol > cols() - pattern.cols()) {
+            throw std::invalid_argument("Pattern placement exceeds state bounds.");
+        }
+
+        for(size_t r = 0; r < pattern.rows(); ++r) {
+            for(size_t c = 0; c < pattern.cols(); ++c) {
+                const size_t targetRow = r + startRow; 
+                const size_t targetCol = c + startCol;
+
+                if(targetRow >= rows() || targetCol >= cols()) continue;
+
+                for(size_t ch = 0; ch < channels(); ++ch) {
+                    _grid(startRow + r, startCol + c, ch) = pattern(r, c, ch);
+                }
+            }
+        }
+    }
+
+    void placePatternCentred(const Pattern& pattern) {
+        const size_t startRow = (rows() - pattern.rows()) / 2;
+        const size_t startCol = (cols() - pattern.cols()) / 2;
+
+        placePatternAt(pattern, startRow, startCol);
+    }
+
+    size_t rows() const { return _grid.rows(); }
+    size_t cols() const { return _grid.cols(); }
+    size_t channels() const { return _grid.channels(); }
 
 private:
     Grid<Scalar> _grid;
