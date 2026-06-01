@@ -1,0 +1,12 @@
+{
+    "name": "glider",
+    "system": "conway",
+    "desc": "a small spaceship, which moves diagonally",
+    "world": {
+        "rows": 64,
+        "cols": 64,
+        "channels": 1
+    },
+
+    "pattern": "assets/patterns/conway/glider.json"
+}
