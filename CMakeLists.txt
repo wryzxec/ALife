@@ -35,7 +35,7 @@ set(KISSFFT_STATIC ON CACHE BOOL "" FORCE)
 
 FetchContent_MakeAvailable(kissfft)
 
-# nhlomann
+# nlohmann
 FetchContent_Declare(
     nlohmann_json
     GIT_REPOSITORY https://github.com/nlohmann/json.git
