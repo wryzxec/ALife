@@ -51,6 +51,7 @@ add_executable(alife
     src/main.cpp
     src/app.cpp
     src/render/sfml_renderer.cpp
+    src/config/sim_preset_loader.cpp
 )
 
 target_link_libraries(alife PRIVATE
