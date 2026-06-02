@@ -4,10 +4,10 @@
 #include <utility>
 
 #include "alife/alife.hpp"
-#include "alife/constraints/clamp_constraint.hpp"
-#include "alife/integrators/euler_integrator.hpp"
-#include "alife/observations/smooth_observation.hpp"
-#include "alife/rules/smoothlife_rule.hpp"
+#include "alife/constraints/clamp.hpp"
+#include "alife/integrators/euler.hpp"
+#include "alife/observations/smooth.hpp"
+#include "alife/rules/smoothlife.hpp"
 
 class SmoothLife : public ALife {
 public:

@@ -4,11 +4,10 @@
 #include <utility>
 
 #include "alife/alife.hpp"
-#include "alife/constraints/clamp_constraint.hpp"
-#include "alife/observations/conv_observation.hpp"
-#include "alife/observations/fft_conv_observation.hpp"
-#include "alife/integrators/euler_integrator.hpp"
-#include "alife/rules/lenia_rule.hpp"
+#include "alife/constraints/clamp.hpp"
+#include "alife/observations/fft_convolution.hpp"
+#include "alife/integrators/euler.hpp"
+#include "alife/rules/lenia.hpp"
 #include "core/kernel.hpp"
 
 class Lenia : public ALife {

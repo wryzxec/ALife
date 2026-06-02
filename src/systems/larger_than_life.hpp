@@ -3,10 +3,10 @@
 #include <memory>
 #include <utility>
 
-#include "alife/observations/nbr_observation.hpp"
-#include "alife/rules/larger_than_life_rule.hpp"
-#include "alife/integrators/discrete_integrator.hpp"
-#include "alife/constraints/binary_constraint.hpp"
+#include "alife/observations/neighbour.hpp"
+#include "alife/rules/larger_than_life.hpp"
+#include "alife/integrators/discrete.hpp"
+#include "alife/constraints/binary.hpp"
 #include "alife/alife.hpp"
 
 class LargerThanLife : public ALife {
