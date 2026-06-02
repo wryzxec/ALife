@@ -1,0 +1,12 @@
+{
+    "name": "spaceship",
+    "system": "conway",
+    "desc": "a small spaceship, which moves horizontally",
+    "world": {
+        "rows": 64,
+        "cols": 64,
+        "channels": 1
+    },
+
+    "pattern": "assets/patterns/conway/spaceship.json"
+}

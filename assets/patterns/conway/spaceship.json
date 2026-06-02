@@ -1,0 +1,14 @@
+{
+  "name": "spaceship",
+  "system": "conway",
+  "desc": "A small spaceship that moves horizontally.",
+  "rows": 4,
+  "cols": 5,
+  "channels": 1,
+  "values": [
+    0, 1, 1, 1, 1,
+    1, 0, 0, 0, 1,
+    0, 0, 0, 0, 1,
+    1, 0, 0, 1, 0
+  ]
+}
