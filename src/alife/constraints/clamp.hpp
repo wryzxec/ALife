@@ -1,6 +1,7 @@
 #pragma once
 
 #include <algorithm>
+#include <cstddef>
 
 #include "alife/constraint.hpp"
 
@@ -13,7 +14,9 @@ public:
     void apply(State& state) override {
         for(size_t r = 0; r < state.rows(); ++r) {
             for(size_t c = 0; c < state.cols(); ++c) {
-                state(r, c) = std::clamp(state(r, c), _minVal, _maxVal);
+                for(size_t ch = 0; ch < state.channels(); ++ch) {
+                    state(r, c, ch) = std::clamp(state(r, c, ch), _minVal, _maxVal);
+                }
             }
         }
     }
