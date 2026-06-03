@@ -91,16 +91,17 @@ public:
         return kernel;
     }
 
-    static Kernel gaussianRings(size_t radius, double mu, double sigma, 
+    static Kernel gaussianRings(double radius, double mu, double sigma, 
             const std::vector<double>& beta) {
         if(radius == 0) throw std::invalid_argument("Kernel radius must be greater than zero.");
         if(beta.empty()) throw std::invalid_argument("Beta must contain at least one value.");
         if(sigma <= 0.0) throw std::invalid_argument("Sigma must be greater than zero.");
 
-        const size_t size = 2 * radius + 1;
+        const size_t gridRadius = static_cast<size_t>(std::ceil(radius));
+        const size_t size = 2 * gridRadius + 1;
         Kernel kernel(size, size);
 
-        const double centre = static_cast<double>(radius);
+        const double centre = static_cast<double>(gridRadius);
         const size_t bands = beta.size();
 
         for(size_t r = 0; r < size; ++r) {
@@ -109,7 +110,7 @@ public:
                 const double dc = static_cast<double>(c) - centre;
                 
                 const double dist = std::sqrt(dr * dr + dc * dc);
-                const double distNorm = dist / static_cast<double>(radius);
+                const double distNorm = dist / radius;
 
                 if(distNorm >= 1.0) {
                     kernel(r, c) = 0.0;
