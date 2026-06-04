@@ -20,13 +20,22 @@ SFMLRenderer::SFMLRenderer(
         },
         "ALife"
     },
-    _cell{
+    _pixels(windowRows * windowCols * 4, 0), //4 channels rgba.
+    _texture{
+        sf::Vector2u{
+            static_cast<unsigned int>(windowCols),
+            static_cast<unsigned int>(windowRows)
+        }
+    },
+    _sprite{_texture}
+{
+    _sprite.setScale(
         sf::Vector2f{
             static_cast<float>(cellSize),
             static_cast<float>(cellSize)
         }
-    }
-{
+    );
+
     _border.setFillColor(sf::Color::Transparent);
     _border.setOutlineColor(sf::Color{255, 255, 255, 50});
     _border.setOutlineThickness(1.0f);
@@ -46,12 +55,23 @@ bool SFMLRenderer::isOpen() const {
 
 void SFMLRenderer::render(const ALife& sim) {
     const State& state = sim.state();
-    
-    _window.clear(sf::Color::Black);
+
+    clearPixels();
 
     // centre the simulation in the window
     size_t rowOffset = (_windowRows / 2) - state.rows() / 2;
     size_t colOffset = (_windowCols / 2) - state.cols() / 2;
+
+    // draw cell states
+    for(size_t r = 0; r < state.rows(); ++r) {
+        for(size_t c = 0; c < state.cols(); ++c) {
+            setPixel(rowOffset + r, colOffset + c, colorFromState(state, r, c));
+        }
+    }
+
+    _texture.update(_pixels.data());
+    _window.clear(sf::Color::Black);
+    _window.draw(_sprite);
 
     // position border around simulation
     _border.setPosition(
@@ -67,28 +87,11 @@ void SFMLRenderer::render(const ALife& sim) {
         }
     );
 
-    // draw cell states
-    for(size_t r = 0; r < state.rows(); ++r) {
-        for(size_t c = 0; c < state.cols(); ++c) {
-            _cell.setFillColor(colorFromState(state, r, c));
-
-            _cell.setPosition(
-                sf::Vector2f{
-                    static_cast<float>(_cellSize * (colOffset + c)),
-                    static_cast<float>(_cellSize * (rowOffset + r))
-                }
-            );
-
-            _window.draw(_cell);
-        }
-    }
-
     _window.draw(_border);
-
     _window.display();
 }
 
-sf::Color SFMLRenderer::colorFromState(const State& state, size_t r, size_t c) {
+sf::Color SFMLRenderer::colorFromState(const State& state, size_t r, size_t c) const {
     const auto toByte = [](double value) {
         value = std::clamp(value, 0.0, 1.0);
         return static_cast<uint8_t>(value * 255.0);
@@ -111,4 +114,20 @@ sf::Color SFMLRenderer::colorFromState(const State& state, size_t r, size_t c) {
         toByte(ch1),
         toByte(ch2)
     );
+}
+void SFMLRenderer::clearPixels() {
+    for(size_t i = 0; i < _pixels.size(); i += 4) {
+        _pixels[i] = 0;
+        _pixels[i + 1] = 0;
+        _pixels[i + 2] = 0;
+        _pixels[i + 3] = 255;
+    }
+}
+
+void SFMLRenderer::setPixel(size_t r, size_t c, sf::Color colour) {
+    const size_t i = 4 * (r * _windowCols + c);
+    _pixels[i] = colour.r;
+    _pixels[i + 1] = colour.g;
+    _pixels[i + 2] = colour.b;
+    _pixels[i + 3] = colour.a;
 }
