@@ -1,0 +1,67 @@
+{
+    "name": "fish",
+    "system": "lenia",
+    "desc": "A fish-like creature.",
+
+    "world": {
+        "rows": 256,
+        "cols": 256,
+        "channels": 1
+    },
+
+    "pattern": "assets/patterns/lenia/fish.json",
+
+    "parameters": {
+        "interactions": [
+        {
+            "source": 0,
+            "target": 0,
+            "weight": 1.0,
+            "kernel": {
+                "type": "gaussian_rings",
+                "radius": 10.0,
+                "mu": 0.5,
+                "sigma": 0.15,
+                "beta": [1.0, 0.41667, 0.6667]
+            },
+            "growth": {
+                "mu": 0.156,
+                "sigma": 0.0118
+            }
+        },
+        {
+            "source": 0,
+            "target": 0,
+            "weight": 1.0,
+            "kernel": {
+                "type": "gaussian_rings",
+                "radius": 10.0,
+                "mu": 0.5,
+                "sigma": 0.15,
+                "beta": [0.0833, 1.0]
+            },
+            "growth": {
+                "mu": 0.193,
+                "sigma": 0.049
+            }
+        },
+        {
+            "source": 0,
+            "target": 0,
+            "weight": 1.0,
+            "kernel": {
+                "type": "gaussian_rings",
+                "radius": 10.0,
+                "mu": 0.5,
+                "sigma": 0.15,
+                "beta": [1.0]
+            },
+            "growth": {
+                "mu": 0.342,
+                "sigma": 0.0891
+            }
+        }
+        ],
+        "dt": 0.1
+    }
+}

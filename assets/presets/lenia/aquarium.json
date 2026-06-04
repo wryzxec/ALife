@@ -1,0 +1,260 @@
+{
+    "name": "aquarium",
+    "system": "lenia",
+    "desc": "A multi-channel Lenia glider.",
+
+    "world": {
+        "rows": 128,
+        "cols": 128,
+        "channels": 3
+    },
+
+    "pattern": "assets/patterns/lenia/aquarium.json",
+
+    "parameters": {
+        "interactions": [
+        {
+            "source": 0,
+            "target": 0,
+            "weight": 0.138,
+            "kernel": {
+                "type": "gaussian_rings",
+                "radius": 10.92,
+                "mu": 0.5,
+                "sigma": 0.15,
+                "beta": [1.0]
+            },
+            "growth": {
+                "mu": 0.272,
+                "sigma": 0.0595
+            }
+        },
+        {
+            "source": 0,
+            "target": 0,
+            "weight": 0.48,
+            "kernel": {
+                "type": "gaussian_rings",
+                "radius": 7.44,
+                "mu": 0.5,
+                "sigma": 0.15,
+                "beta": [1.0]
+            },
+            "growth": {
+                "mu": 0.349,
+                "sigma": 0.1585
+            }
+        },
+        {
+            "source": 0,
+            "target": 0,
+            "weight": 0.284,
+            "kernel": {
+                "type": "gaussian_rings",
+                "radius": 6.0,
+                "mu": 0.5,
+                "sigma": 0.15,
+                "beta": [1.0, 0.25]
+            },
+            "growth": {
+                "mu": 0.2,
+                "sigma": 0.0332
+            }
+        },
+        {
+            "source": 1,
+            "target": 1,
+            "weight": 0.256,
+            "kernel": {
+                "type": "gaussian_rings",
+                "radius": 11.64,
+                "mu": 0.5,
+                "sigma": 0.15,
+                "beta": [0.0, 1.0]
+            },
+            "growth": {
+                "mu": 0.114,
+                "sigma": 0.0528
+            }
+        },
+        {
+            "source": 1,
+            "target": 1,
+            "weight": 0.5,
+            "kernel": {
+                "type": "gaussian_rings",
+                "radius": 8.64,
+                "mu": 0.5,
+                "sigma": 0.15,
+                "beta": [1.0]
+            },
+            "growth": {
+                "mu": 0.447,
+                "sigma": 0.0777
+            }
+        },
+        {
+            "source": 1,
+            "target": 1,
+            "weight": 0.622,
+            "kernel": {
+                "type": "gaussian_rings",
+                "radius": 9.6,
+                "mu": 0.5,
+                "sigma": 0.15,
+                "beta": [0.8333333333, 1.0]
+            },
+            "growth": {
+                "mu": 0.247,
+                "sigma": 0.0342
+            }
+        },
+        {
+            "source": 2,
+            "target": 2,
+            "weight": 0.35,
+            "kernel": {
+                "type": "gaussian_rings",
+                "radius": 11.52,
+                "mu": 0.5,
+                "sigma": 0.15,
+                "beta": [1.0]
+            },
+            "growth": {
+                "mu": 0.21,
+                "sigma": 0.0617
+            }
+        },
+        {
+            "source": 2,
+            "target": 2,
+            "weight": 0.218,
+            "kernel": {
+                "type": "gaussian_rings",
+                "radius": 6.72,
+                "mu": 0.5,
+                "sigma": 0.15,
+                "beta": [1.0]
+            },
+            "growth": {
+                "mu": 0.462,
+                "sigma": 0.1192
+            }
+        },
+        {
+            "source": 2,
+            "target": 2,
+            "weight": 0.556,
+            "kernel": {
+                "type": "gaussian_rings",
+                "radius": 9.36,
+                "mu": 0.5,
+                "sigma": 0.15,
+                "beta": [1.0]
+            },
+            "growth": {
+                "mu": 0.446,
+                "sigma": 0.1793
+            }
+        },
+        {
+            "source": 0,
+            "target": 1,
+            "weight": 0.344,
+            "kernel": {
+                "type": "gaussian_rings",
+                "radius": 9.48,
+                "mu": 0.5,
+                "sigma": 0.15,
+                "beta": [0.9166666667, 1.0]
+            },
+            "growth": {
+                "mu": 0.327,
+                "sigma": 0.1408
+            }
+        },
+        {
+            "source": 0,
+            "target": 2,
+            "weight": 0.456,
+            "kernel": {
+                "type": "gaussian_rings",
+                "radius": 6.0,
+                "mu": 0.5,
+                "sigma": 0.15,
+                "beta": [0.75, 1.0]
+            },
+            "growth": {
+                "mu": 0.476,
+                "sigma": 0.0995
+            }
+        },
+        {
+            "source": 1,
+            "target": 0,
+            "weight": 0.67,
+            "kernel": {
+                "type": "gaussian_rings",
+                "radius": 8.64,
+                "mu": 0.5,
+                "sigma": 0.15,
+                "beta": [0.9166666667, 1.0]
+            },
+            "growth": {
+                "mu": 0.379,
+                "sigma": 0.0697
+            }
+        },
+        {
+            "source": 1,
+            "target": 2,
+            "weight": 0.42,
+            "kernel": {
+                "type": "gaussian_rings",
+                "radius": 8.16,
+                "mu": 0.5,
+                "sigma": 0.15,
+                "beta": [1.0]
+            },
+            "growth": {
+                "mu": 0.262,
+                "sigma": 0.0877
+            }
+        },
+        {
+            "source": 2,
+            "target": 0,
+            "weight": 0.43,
+            "kernel": {
+                "type": "gaussian_rings",
+                "radius": 9.84,
+                "mu": 0.5,
+                "sigma": 0.15,
+                "beta": [0.1666666667, 1.0, 0.0]
+            },
+            "growth": {
+                "mu": 0.412,
+                "sigma": 0.1101
+            }
+        },
+        {
+            "source": 2,
+            "target": 1,
+            "weight": 0.278,
+            "kernel": {
+                "type": "gaussian_rings",
+                "radius": 9.84,
+                "mu": 0.5,
+                "sigma": 0.15,
+                "beta": [1.0]
+            },
+            "growth": {
+                "mu": 0.201,
+                "sigma": 0.0786
+            }
+        }
+        ],
+
+        "dt": 0.5
+    }
+}
