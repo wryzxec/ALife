@@ -23,7 +23,7 @@ KernelConfig loadKernelConfig(const json& data) {
     KernelConfig config;
 
     config.type = data.at("type").get<std::string>();
-    config.radius = data.at("radius").get<std::size_t>();
+    config.radius = data.at("radius").get<double>();
 
     config.mu = data.value("mu", 0.5);
     config.sigma = data.value("sigma", 0.15);
@@ -41,6 +41,27 @@ GrowthConfig loadGrowthConfig(const json& data) {
         data.at("mu").get<double>(),
         data.at("sigma").get<double>()
     };
+}
+
+InteractionConfig loadInteractionConfig(const json& data) {
+    return InteractionConfig{
+        data.at("source").get<size_t>(),
+        data.at("target").get<size_t>(),
+        data.at("weight").get<double>(),
+        loadKernelConfig(data.at("kernel")),
+        loadGrowthConfig(data.at("growth"))
+    };
+}
+
+std::vector<InteractionConfig> loadInteractionConfigs(const json& data) {
+    std::vector<InteractionConfig> interactions;
+    interactions.reserve(data.size());
+
+    for(const auto& interaction : data) {
+        interactions.push_back(loadInteractionConfig(interaction));
+    }
+
+    return interactions;
 }
 
 LargerThanLifeConfig loadLargerThanLifeConfig(const json& data) {
@@ -74,8 +95,7 @@ SmoothLifeConfig loadSmoothLifeConfig(const json& data) {
 
 LeniaConfig loadLeniaConfig(const json& data) {
     return LeniaConfig{
-        loadKernelConfig(data.at("kernel")),
-        loadGrowthConfig(data.at("growth")),
+        loadInteractionConfigs(data.at("interactions")),
         data.at("dt").get<double>()
     };
 }
