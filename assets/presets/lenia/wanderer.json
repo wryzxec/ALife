@@ -1,0 +1,36 @@
+{
+    "name": "wanderer",
+    "system": "lenia",
+    "desc": "",
+
+    "world": {
+        "rows": 256,
+        "cols": 256,
+        "channels": 1
+    },
+
+    "pattern": "assets/patterns/lenia/wanderer.json",
+
+    "parameters": {
+        "dt": 0.1,
+        "interactions": [
+        {
+            "source": 0,
+            "target": 0,
+            "weight": 1.0,
+            "update": "asymptotic",
+            "kernel": {
+                "type": "gaussian_rings",
+                "radius": 13,
+                "mu": 0.5,
+                "sigma": 0.15,
+                "beta": [0.75, 1.0]
+            },
+            "growth": {
+                "mu": 0.1,
+                "sigma": 0.005
+            }
+        }
+        ]
+    }
+}

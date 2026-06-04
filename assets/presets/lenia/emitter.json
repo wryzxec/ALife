@@ -1,0 +1,274 @@
+{
+	"name": "smooth-glider-gun",
+	"system": "lenia",
+	"desc": "smooth glider gun emitter.",
+
+    "pattern": "assets/patterns/lenia/emitter.json",
+
+	"world": {
+		"rows": 128,
+		"cols": 128,
+		"channels": 3
+	},
+
+	"parameters": {
+		"dt": 0.5,
+		"interactions": [
+			{
+				"source": 0,
+				"target": 0,
+				"weight": 0.076,
+				"update_mode": "classic",
+				"kernel": {
+					"type": "gaussian_rings",
+					"radius": 7.28,
+					"mu": 0.5,
+					"sigma": 0.15,
+					"beta": [1.0]
+				},
+				"growth": {
+					"mu": 0.184,
+					"sigma": 0.0632
+				}
+			},
+			{
+				"source": 0,
+				"target": 0,
+				"weight": 0.516,
+				"update_mode": "classic",
+				"kernel": {
+					"type": "gaussian_rings",
+					"radius": 9.88,
+					"mu": 0.5,
+					"sigma": 0.15,
+					"beta": [1.0]
+				},
+				"growth": {
+					"mu": 0.1,
+					"sigma": 0.1511
+				}
+			},
+			{
+				"source": 0,
+				"target": 0,
+				"weight": 0.554,
+				"update_mode": "classic",
+				"kernel": {
+					"type": "gaussian_rings",
+					"radius": 6.5,
+					"mu": 0.5,
+					"sigma": 0.15,
+					"beta": [1.0]
+				},
+				"growth": {
+					"mu": 0.246,
+					"sigma": 0.047
+				}
+			},
+			{
+				"source": 1,
+				"target": 1,
+				"weight": 0.294,
+				"update_mode": "classic",
+				"kernel": {
+					"type": "gaussian_rings",
+					"radius": 10.92,
+					"mu": 0.5,
+					"sigma": 0.15,
+					"beta": [0.0833, 1.0]
+				},
+				"growth": {
+					"mu": 0.1,
+					"sigma": 0.0553
+				}
+			},
+			{
+				"source": 1,
+				"target": 1,
+				"weight": 0.594,
+				"update_mode": "classic",
+				"kernel": {
+					"type": "gaussian_rings",
+					"radius": 12.61,
+					"mu": 0.5,
+					"sigma": 0.15,
+					"beta": [1.0]
+				},
+				"growth": {
+					"mu": 0.324,
+					"sigma": 0.0782
+				}
+			},
+			{
+				"source": 1,
+				"target": 1,
+				"weight": 0.612,
+				"update_mode": "classic",
+				"kernel": {
+					"type": "gaussian_rings",
+					"radius": 12.74,
+					"mu": 0.5,
+					"sigma": 0.15,
+					"beta": [0.8333, 1.0]
+				},
+				"growth": {
+					"mu": 0.229,
+					"sigma": 0.0321
+				}
+			},
+			{
+				"source": 2,
+				"target": 2,
+				"weight": 0.396,
+				"update_mode": "asymptotic",
+				"kernel": {
+					"type": "gaussian_rings",
+					"radius": 11.31,
+					"mu": 0.5,
+					"sigma": 0.15,
+					"beta": [1.0]
+				},
+				"growth": {
+					"mu": 0.29,
+					"sigma": 0.0713
+				}
+			},
+			{
+				"source": 2,
+				"target": 2,
+				"weight": 0.244,
+				"update_mode": "asymptotic",
+				"kernel": {
+					"type": "gaussian_rings",
+					"radius": 12.48,
+					"mu": 0.5,
+					"sigma": 0.15,
+					"beta": [1.0]
+				},
+				"growth": {
+					"mu": 0.484,
+					"sigma": 0.1343
+				}
+			},
+			{
+				"source": 2,
+				"target": 2,
+				"weight": 0.562,
+				"update_mode": "asymptotic",
+				"kernel": {
+					"type": "gaussian_rings",
+					"radius": 12.09,
+					"mu": 0.5,
+					"sigma": 0.15,
+					"beta": [1.0]
+				},
+				"growth": {
+					"mu": 0.592,
+					"sigma": 0.1807
+				}
+			},
+			{
+				"source": 0,
+				"target": 1,
+				"weight": 0.36,
+				"update_mode": "classic",
+				"kernel": {
+					"type": "gaussian_rings",
+					"radius": 11.57,
+					"mu": 0.5,
+					"sigma": 0.15,
+					"beta": [1.0]
+				},
+				"growth": {
+					"mu": 0.398,
+					"sigma": 0.1411
+				}
+			},
+			{
+				"source": 0,
+				"target": 2,
+				"weight": 0.192,
+				"update_mode": "asymptotic",
+				"kernel": {
+					"type": "gaussian_rings",
+					"radius": 8.71,
+					"mu": 0.5,
+					"sigma": 0.15,
+					"beta": [1.0]
+				},
+				"growth": {
+					"mu": 0.388,
+					"sigma": 0.1144
+				}
+			},
+			{
+				"source": 1,
+				"target": 0,
+				"weight": 0.462,
+				"update_mode": "classic",
+				"kernel": {
+					"type": "gaussian_rings",
+					"radius": 7.54,
+					"mu": 0.5,
+					"sigma": 0.15,
+					"beta": [1.0, 0.9167, 0.0]
+				},
+				"growth": {
+					"mu": 0.312,
+					"sigma": 0.0697
+				}
+			},
+			{
+				"source": 1,
+				"target": 2,
+				"weight": 0.608,
+				"update_mode": "asymptotic",
+				"kernel": {
+					"type": "gaussian_rings",
+					"radius": 13.0,
+					"mu": 0.5,
+					"sigma": 0.15,
+					"beta": [1.0]
+				},
+				"growth": {
+					"mu": 0.327,
+					"sigma": 0.1036
+				}
+			},
+			{
+				"source": 2,
+				"target": 0,
+				"weight": 0.394,
+				"update_mode": "classic",
+				"kernel": {
+					"type": "gaussian_rings",
+					"radius": 10.4,
+					"mu": 0.5,
+					"sigma": 0.15,
+					"beta": [1.0]
+				},
+				"growth": {
+					"mu": 0.471,
+					"sigma": 0.1176
+				}
+			},
+			{
+				"source": 2,
+				"target": 1,
+				"weight": 0.14,
+				"update_mode": "classic",
+				"kernel": {
+					"type": "gaussian_rings",
+					"radius": 8.06,
+					"mu": 0.5,
+					"sigma": 0.15,
+					"beta": [1.0, 0.0833]
+				},
+				"growth": {
+					"mu": 0.1,
+					"sigma": 0.0573
+				}
+			}
+		]
+	}
+}
