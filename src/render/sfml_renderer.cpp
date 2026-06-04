@@ -94,6 +94,7 @@ void SFMLRenderer::render(const ALife& sim) {
 sf::Color SFMLRenderer::colorFromState(const State& state, size_t r, size_t c) const {
     const auto toByte = [](double value) {
         value = std::clamp(value, 0.0, 1.0);
+        value = pow(value, 0.5); // make pixel values brighter (lower power -> greater brightness)
         return static_cast<uint8_t>(value * 255.0);
     };
 
