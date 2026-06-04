@@ -12,7 +12,10 @@ public:
     void render(const ALife& sim) override;
     void handleEvents() override;
     bool isOpen() const override;
+
 private:
+    static sf::Color colorFromState(const State& state, size_t r, size_t c);
+
     size_t _windowRows;
     size_t _windowCols;
     unsigned int _cellSize;

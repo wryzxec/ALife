@@ -1,3 +1,6 @@
+#include <algorithm>
+#include <cstddef>
+#include <cstdint>
 #include <optional>
 
 #include "render/sfml_renderer.hpp"
@@ -67,27 +70,45 @@ void SFMLRenderer::render(const ALife& sim) {
     // draw cell states
     for(size_t r = 0; r < state.rows(); ++r) {
         for(size_t c = 0; c < state.cols(); ++c) {
-            for(size_t ch = 0; ch < state.channels(); ++ch) {
-                const double val = state(r, c, ch);
+            _cell.setFillColor(colorFromState(state, r, c));
 
-                if(val <= 0.0) continue;
+            _cell.setPosition(
+                sf::Vector2f{
+                    static_cast<float>(_cellSize * (colOffset + c)),
+                    static_cast<float>(_cellSize * (rowOffset + r))
+                }
+            );
 
-                const double fillVal = val * 255;
-                _cell.setFillColor(sf::Color(fillVal, fillVal, fillVal));
-
-                _cell.setPosition(
-                    sf::Vector2f{
-                        static_cast<float>(_cellSize * (colOffset + c)),
-                        static_cast<float>(_cellSize * (rowOffset + r))
-                    }
-                );
-
-                _window.draw(_cell);
-            }
+            _window.draw(_cell);
         }
     }
 
     _window.draw(_border);
 
     _window.display();
+}
+
+sf::Color SFMLRenderer::colorFromState(const State& state, size_t r, size_t c) {
+    const auto toByte = [](double value) {
+        value = std::clamp(value, 0.0, 1.0);
+        return static_cast<uint8_t>(value * 255.0);
+    };
+
+    // render single channel systems with greyscale.
+    if(state.channels() == 1) {
+        const auto v = toByte(state(r, c, 0));
+        return sf::Color(v, v, v);
+    }
+    
+    // render multi-channel systems with rgb.
+    // only supports rendering up to 3 channels, others are ignored.
+    const double ch0 = state.channels() > 0 ? state(r, c, 0) : 0.0;
+    const double ch1 = state.channels() > 1 ? state(r, c, 1) : 0.0;
+    const double ch2 = state.channels() > 2 ? state(r, c, 2) : 0.0;
+    
+    return sf::Color(
+        toByte(ch0),
+        toByte(ch1),
+        toByte(ch2)
+    );
 }
