@@ -1,6 +1,7 @@
 #include <cstddef>
 #include <fstream>
 #include <stdexcept>
+#include <string>
 
 #include <nlohmann/json.hpp>
 
@@ -43,27 +44,6 @@ GrowthConfig loadGrowthConfig(const json& data) {
     };
 }
 
-InteractionConfig loadInteractionConfig(const json& data) {
-    return InteractionConfig{
-        data.at("source").get<size_t>(),
-        data.at("target").get<size_t>(),
-        data.at("weight").get<double>(),
-        loadKernelConfig(data.at("kernel")),
-        loadGrowthConfig(data.at("growth"))
-    };
-}
-
-std::vector<InteractionConfig> loadInteractionConfigs(const json& data) {
-    std::vector<InteractionConfig> interactions;
-    interactions.reserve(data.size());
-
-    for(const auto& interaction : data) {
-        interactions.push_back(loadInteractionConfig(interaction));
-    }
-
-    return interactions;
-}
-
 LargerThanLifeConfig loadLargerThanLifeConfig(const json& data) {
     return LargerThanLifeConfig{
         data.at("radius").get<std::size_t>(),
@@ -93,10 +73,44 @@ SmoothLifeConfig loadSmoothLifeConfig(const json& data) {
     };
 }
 
+UpdateMode updateModeFromString(const std::string& str) {
+    if(str == "classic") {
+        return UpdateMode::Classic;
+    }
+
+    if(str == "asymptotic") {
+        return UpdateMode::Asymptotic;
+    }
+
+    throw std::invalid_argument("Unknown Lenia update mode: " + str);
+}
+
+InteractionConfig loadInteractionConfig(const json& data) {
+    return InteractionConfig{
+        data.at("source").get<size_t>(),
+        data.at("target").get<size_t>(),
+        data.at("weight").get<double>(),
+        updateModeFromString(data.value("update", "classic")),
+        loadKernelConfig(data.at("kernel")),
+        loadGrowthConfig(data.at("growth"))
+    };
+}
+
+std::vector<InteractionConfig> loadInteractionConfigs(const json& data) {
+    std::vector<InteractionConfig> interactions;
+    interactions.reserve(data.size());
+
+    for(const auto& interaction : data) {
+        interactions.push_back(loadInteractionConfig(interaction));
+    }
+
+    return interactions;
+}
+
 LeniaConfig loadLeniaConfig(const json& data) {
     return LeniaConfig{
-        loadInteractionConfigs(data.at("interactions")),
-        data.at("dt").get<double>()
+        data.at("dt").get<double>(),
+        loadInteractionConfigs(data.at("interactions"))
     };
 }
 

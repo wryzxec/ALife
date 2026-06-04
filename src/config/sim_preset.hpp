@@ -94,14 +94,15 @@ struct InteractionConfig {
     size_t source = 0;
     size_t target = 0;
     double weight = 1.0;
+    UpdateMode updateMode = UpdateMode::Classic;
 
     KernelConfig kernel;
     GrowthConfig growth;
 };
 
 struct LeniaConfig {
-    std::vector<InteractionConfig> interactions;
     double dt = 1.0;
+    std::vector<InteractionConfig> interactions;
 };
 
 inline Interaction interactionFromConfig(const InteractionConfig& config) {
@@ -111,7 +112,8 @@ inline Interaction interactionFromConfig(const InteractionConfig& config) {
         kernelFromConfig(config.kernel),
         config.growth.mu,
         config.growth.sigma,
-        config.weight
+        config.weight,
+        config.updateMode
     };
 }
 

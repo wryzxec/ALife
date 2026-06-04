@@ -15,36 +15,41 @@ public:
     {}
 
     Field apply(const State& state, const Field& potentials) override {
-        Field growth(state.rows(), state.cols(), state.channels());
+        Field delta(state.rows(), state.cols(), state.channels());
 
         for(size_t i = 0; i < _interactions.size(); ++i) {
             const Interaction& interaction = _interactions[i];
-            accumInteractionGrowth(growth, potentials, i, interaction);
-        }
+            for(size_t r = 0; r < state.rows(); ++r) {
+                for(size_t c = 0; c < state.cols(); ++c) {
+                    const double u = potentials(r, c, i);
+                    const size_t ch = interaction.targetChannel;
+                    const double w =interaction.weight;
 
-        return growth;
-    }
-private:
-    static double growthFunction(double u, double mu, double sigma) {
-        const double diff = u - mu;
-        const double exp = -(diff * diff) / (2.0 * sigma * sigma);
-
-        return 2.0 * std::exp(exp) - 1.0;
-    }
-
-    static void accumInteractionGrowth(Field& growth, const Field& potentials,
-            size_t interactionIndex, const Interaction& interaction) {
-        for(size_t r = 0; r < growth.rows(); ++r) {
-            for(size_t c = 0; c < growth.cols(); ++c) {
-                const double u = potentials(r, c, interactionIndex);
-                const double g = growthFunction(
-                        u, interaction.growthMu, interaction.growthSigma
-                );
-
-                growth(r, c, interaction.targetChannel) += 
-                    interaction.weight * g;
+                    if(interaction.updateMode == UpdateMode::Classic) {
+                        delta(r, c, ch) += w * growth(
+                            u, interaction.growthMu, interaction.growthSigma
+                        );
+                    } else {
+                        delta(r, c, ch) += w * bell(
+                            u, interaction.growthMu, interaction.growthSigma
+                        ) - state(r, c, ch);
+                    }
+                }
             }
         }
+
+        return delta;
+    }
+
+private:
+    static double bell(double u, double mu, double sigma) {
+        const double diff = u - mu;
+        const double exp = -(diff * diff) / (2.0 * sigma * sigma);
+        return std::exp(exp);
+    }
+
+    static double growth(double u, double mu, double sigma) {
+        return 2.0 * bell(u, mu, sigma) - 1.0;
     }
 
     std::vector<Interaction> _interactions;
