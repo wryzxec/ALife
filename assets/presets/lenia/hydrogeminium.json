@@ -12,6 +12,8 @@
     "pattern": "assets/patterns/lenia/hydrogeminium.json",
 
     "parameters": {
+        "update": "classic",
+        "dt": 0.1,
         "interactions": [
         {
             "source": 0,
@@ -29,7 +31,6 @@
                 "sigma": 0.036
             }
         }
-        ],
-        "dt": 0.1
+        ]
     }
 }

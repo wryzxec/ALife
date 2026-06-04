@@ -12,6 +12,8 @@
     "pattern": "assets/patterns/lenia/aquarium.json",
 
     "parameters": {
+        "update": "classic",
+        "dt": 0.5,
         "interactions": [
         {
             "source": 0,
@@ -253,8 +255,6 @@
                 "sigma": 0.0786
             }
         }
-        ],
-
-        "dt": 0.5
+        ]
     }
 }

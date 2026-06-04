@@ -12,6 +12,8 @@
     "pattern": "assets/patterns/lenia/fish.json",
 
     "parameters": {
+        "update": "classic",
+        "dt": 0.1,
         "interactions": [
         {
             "source": 0,
@@ -61,7 +63,6 @@
                 "sigma": 0.0891
             }
         }
-        ],
-        "dt": 0.1
+        ]
     }
 }
