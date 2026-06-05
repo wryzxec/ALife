@@ -20,7 +20,7 @@ WorldConfig loadWorldConfig(const json& data) {
     };
 };
 
-KernelConfig loadKernelConfig(const json& data, size_t spatialScale) {
+KernelConfig loadKernelConfig(const json& data, double spatialScale) {
     KernelConfig config;
 
     config.type = data.at("type").get<std::string>();
@@ -85,7 +85,7 @@ UpdateMode updateModeFromString(const std::string& str) {
     throw std::invalid_argument("Unknown Lenia update mode: " + str);
 }
 
-InteractionConfig loadInteractionConfig(const json& data, size_t spatialScale) {
+InteractionConfig loadInteractionConfig(const json& data, double spatialScale) {
     return InteractionConfig{
         data.at("source").get<size_t>(),
         data.at("target").get<size_t>(),
@@ -96,7 +96,7 @@ InteractionConfig loadInteractionConfig(const json& data, size_t spatialScale) {
     };
 }
 
-std::vector<InteractionConfig> loadInteractionConfigs(const json& data, size_t spatialScale) {
+std::vector<InteractionConfig> loadInteractionConfigs(const json& data, double spatialScale) {
     std::vector<InteractionConfig> interactions;
     interactions.reserve(data.size());
 
@@ -142,7 +142,7 @@ SimulationPreset loadSimulationPreset(const std::filesystem::path& path) {
 
     preset.world = loadWorldConfig(data.at("world"));
 
-    preset.spatialScale = data.value("spatial_scale", size_t{1});
+    preset.spatialScale = data.value("spatial_scale", double{1.0});
 
     if (data.contains("pattern")) {
         preset.patternPath = data.at("pattern").get<std::string>();

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cmath>
 #include <cstddef>
 #include <initializer_list>
 #include <stdexcept>
@@ -30,26 +31,36 @@ public:
         assignValues(values.begin(), values.size());
     }
 
-    void scale(size_t factor) {
-        if(factor <= 1) return;
+    void scale(double factor) {
+
+        if(factor <= 0.0) throw std::invalid_argument("Scale factor must be positive.");
+        if(factor == 1.0) return;
 
         const size_t oldRows = rows();
         const size_t oldCols = cols();
+        const size_t oldChannels = channels();
 
-        Grid<double> scaled(oldRows * factor, oldCols * factor, channels());
+        const size_t newRows =
+            static_cast<size_t>(std::round(static_cast<double>(oldRows) * factor));
+        const size_t newCols =
+            static_cast<size_t>(std::round(static_cast<double>(oldCols) * factor));
 
-        for(size_t r = 0; r < oldRows; ++r) {
-            for(size_t c = 0; c < oldCols; ++c) {
-                for(size_t dr = 0; dr < factor; ++dr) {
-                    for(size_t dc = 0; dc < factor; ++dc) {
-                        for(size_t ch = 0; ch < channels(); ++ch) {
-                            scaled(
-                                r * factor + dr,
-                                c * factor + dc,
-                                ch
-                            ) = _grid(r, c, ch);
-                        }
-                    }
+        Grid<double> scaled(newRows, newCols, oldChannels);
+
+        for(size_t r = 0; r < newRows; ++r) {
+            for(size_t c = 0; c < newCols; ++c) {
+                const size_t srcR = std::min(
+                    static_cast<size_t>(std::floor(static_cast<double>(r) / factor)),
+                    oldRows - 1
+                );
+
+                const size_t srcC = std::min(
+                    static_cast<size_t>(std::floor(static_cast<double>(c) / factor)),
+                    oldCols - 1
+                );
+
+                for(size_t ch = 0; ch < oldChannels; ++ch) {
+                    scaled(r, c, ch) = _grid(srcR, srcC, ch);
                 }
             }
         }

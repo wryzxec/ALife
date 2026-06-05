@@ -157,7 +157,7 @@ struct SimulationPreset {
 
     WorldConfig world;
 
-    size_t spatialScale = 1; // does not impact world size, just the scaling of the pattern, and kernels.
+    double spatialScale = 1; // does not impact world size, just the scaling of the pattern, and kernels.
 
     std::optional<std::filesystem::path> patternPath;
     std::optional<LargerThanLifeConfig> largerThanLife;

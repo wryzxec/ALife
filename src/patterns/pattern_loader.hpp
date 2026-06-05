@@ -12,7 +12,7 @@
 #include "patterns/pattern.hpp"
 #include "systems/system_type.hpp"
 
-inline PatternPreset loadPatternPreset(const std::filesystem::path& path, size_t scaleFactor) {
+inline PatternPreset loadPatternPreset(const std::filesystem::path& path, double scaleFactor) {
     std::ifstream file(path);
 
     if(!file) throw std::runtime_error("Could not open pattern file: " + path.string());
@@ -31,7 +31,7 @@ inline PatternPreset loadPatternPreset(const std::filesystem::path& path, size_t
     
     Pattern pattern(rows, cols, channels, values);
 
-    if(scaleFactor > 1) pattern.scale(scaleFactor);
+    if(scaleFactor > 1.0) pattern.scale(scaleFactor);
 
     return PatternPreset(name, systemTypeFromString(system), desc, std::move(pattern));
 }
