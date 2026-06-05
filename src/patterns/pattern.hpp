@@ -3,6 +3,7 @@
 #include <cstddef>
 #include <initializer_list>
 #include <stdexcept>
+#include <utility>
 
 #include "core/grid.hpp"
 
@@ -27,6 +28,33 @@ public:
         : _grid(rows, cols, channels)
     {
         assignValues(values.begin(), values.size());
+    }
+
+    void scale(size_t factor) {
+        if(factor <= 1) return;
+
+        const size_t oldRows = rows();
+        const size_t oldCols = cols();
+
+        Grid<double> scaled(oldRows * factor, oldCols * factor, channels());
+
+        for(size_t r = 0; r < oldRows; ++r) {
+            for(size_t c = 0; c < oldCols; ++c) {
+                for(size_t dr = 0; dr < factor; ++dr) {
+                    for(size_t dc = 0; dc < factor; ++dc) {
+                        for(size_t ch = 0; ch < channels(); ++ch) {
+                            scaled(
+                                r * factor + dr,
+                                c * factor + dc,
+                                ch
+                            ) = _grid(r, c, ch);
+                        }
+                    }
+                }
+            }
+        }
+
+        _grid = std::move(scaled);
     }
 
     double& operator()(size_t r, size_t c, size_t channel = 0) { return _grid(r, c, channel); }

@@ -20,11 +20,11 @@ WorldConfig loadWorldConfig(const json& data) {
     };
 };
 
-KernelConfig loadKernelConfig(const json& data) {
+KernelConfig loadKernelConfig(const json& data, size_t spatialScale) {
     KernelConfig config;
 
     config.type = data.at("type").get<std::string>();
-    config.radius = data.at("radius").get<double>();
+    config.radius = data.at("radius").get<double>() * spatialScale;
 
     config.mu = data.value("mu", 0.5);
     config.sigma = data.value("sigma", 0.15);
@@ -85,32 +85,32 @@ UpdateMode updateModeFromString(const std::string& str) {
     throw std::invalid_argument("Unknown Lenia update mode: " + str);
 }
 
-InteractionConfig loadInteractionConfig(const json& data) {
+InteractionConfig loadInteractionConfig(const json& data, size_t spatialScale) {
     return InteractionConfig{
         data.at("source").get<size_t>(),
         data.at("target").get<size_t>(),
         data.at("weight").get<double>(),
         updateModeFromString(data.value("update", "classic")),
-        loadKernelConfig(data.at("kernel")),
+        loadKernelConfig(data.at("kernel"), spatialScale),
         loadGrowthConfig(data.at("growth"))
     };
 }
 
-std::vector<InteractionConfig> loadInteractionConfigs(const json& data) {
+std::vector<InteractionConfig> loadInteractionConfigs(const json& data, size_t spatialScale) {
     std::vector<InteractionConfig> interactions;
     interactions.reserve(data.size());
 
     for(const auto& interaction : data) {
-        interactions.push_back(loadInteractionConfig(interaction));
+        interactions.push_back(loadInteractionConfig(interaction, spatialScale));
     }
 
     return interactions;
 }
 
-LeniaConfig loadLeniaConfig(const json& data) {
+LeniaConfig loadLeniaConfig(const json& data, size_t spatialScale) {
     return LeniaConfig{
         data.at("dt").get<double>(),
-        loadInteractionConfigs(data.at("interactions"))
+        loadInteractionConfigs(data.at("interactions"), spatialScale)
     };
 }
 
@@ -134,6 +134,8 @@ SimulationPreset loadSimulationPreset(const std::filesystem::path& path) {
 
     preset.world = loadWorldConfig(data.at("world"));
 
+    preset.spatialScale = data.value("spatial_scale", size_t{1});
+
     if (data.contains("pattern")) {
         preset.patternPath = data.at("pattern").get<std::string>();
     }
@@ -146,7 +148,7 @@ SimulationPreset loadSimulationPreset(const std::filesystem::path& path) {
                 break;
 
             case SystemType::Lenia:
-                preset.lenia = loadLeniaConfig(parameters);
+                preset.lenia = loadLeniaConfig(parameters, preset.spatialScale);
                 break;
 
             case SystemType::LargerThanLife:
@@ -163,6 +165,3 @@ SimulationPreset loadSimulationPreset(const std::filesystem::path& path) {
 
     return preset;
 }
-
-
-

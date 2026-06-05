@@ -11,9 +11,9 @@
 #include "systems/lenia/lenia.hpp"
 
 int main() {
-    SimulationPreset simPreset = loadSimulationPreset("assets/presets/lenia/emitter.json");
+    SimulationPreset simPreset = loadSimulationPreset("assets/presets/lenia/fish.json");
     State initialState(simPreset.world.rows, simPreset.world.cols, simPreset.world.channels);
-    PatternPreset pattern = loadPatternPreset(simPreset.patternPath.value());
+    PatternPreset pattern = loadPatternPreset(simPreset.patternPath.value(), simPreset.spatialScale);
     initialState.placePatternCentred(pattern.pattern);
 
     auto sim = std::make_unique<Lenia>(

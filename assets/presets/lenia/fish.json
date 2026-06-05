@@ -9,6 +9,8 @@
         "channels": 1
     },
 
+    "spatial_scale": 4,
+
     "pattern": "assets/patterns/lenia/fish.json",
 
     "parameters": {

@@ -3,9 +3,11 @@
     "system": "lenia",
     "desc": "bacteria-like creature.",
 
+    "spatial_scale": 4,
+
     "world": {
-        "rows": 256,
-        "cols": 256,
+        "rows": 512,
+        "cols": 512,
         "channels": 1
     },
 

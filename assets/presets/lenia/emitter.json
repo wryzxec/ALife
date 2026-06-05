@@ -5,6 +5,8 @@
 
     "pattern": "assets/patterns/lenia/emitter.json",
 
+    "spatial_scale": 2,
+
 	"world": {
 		"rows": 128,
 		"cols": 128,

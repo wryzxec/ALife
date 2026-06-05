@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstddef>
 #include <filesystem>
 #include <fstream>
 #include <stdexcept>
@@ -11,7 +12,7 @@
 #include "patterns/pattern.hpp"
 #include "systems/system_type.hpp"
 
-inline PatternPreset loadPatternPreset(const std::filesystem::path& path) {
+inline PatternPreset loadPatternPreset(const std::filesystem::path& path, size_t scaleFactor) {
     std::ifstream file(path);
 
     if(!file) throw std::runtime_error("Could not open pattern file: " + path.string());
@@ -29,6 +30,8 @@ inline PatternPreset loadPatternPreset(const std::filesystem::path& path) {
     const std::vector<double> values = data.at("values").get<std::vector<double>>();
     
     Pattern pattern(rows, cols, channels, values);
+
+    if(scaleFactor > 1) pattern.scale(scaleFactor);
 
     return PatternPreset(name, systemTypeFromString(system), desc, std::move(pattern));
 }
