@@ -30,9 +30,9 @@ public:
                             u, interaction.growthMu, interaction.growthSigma
                         );
                     } else {
-                        delta(r, c, ch) += w * bell(
+                        delta(r, c, ch) += w * (bell(
                             u, interaction.growthMu, interaction.growthSigma
-                        ) - state(r, c, ch);
+                        ) - state(r, c, ch));
                     }
                 }
             }
