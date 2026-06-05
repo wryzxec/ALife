@@ -21,7 +21,8 @@ int main() {
         interactionsFromConfig(simPreset.lenia.value()),
         simPreset.world.rows,
         simPreset.world.cols,
-        simPreset.lenia->dt
+        simPreset.lenia->dt,
+        constraintFromMode(simPreset.lenia->constraintMode)
     );
 
     auto renderer = std::make_unique<SFMLRenderer>(

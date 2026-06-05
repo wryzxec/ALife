@@ -107,9 +107,17 @@ std::vector<InteractionConfig> loadInteractionConfigs(const json& data, size_t s
     return interactions;
 }
 
-LeniaConfig loadLeniaConfig(const json& data, size_t spatialScale) {
+ConstraintMode constraintModeFromString(const std::string& str) {
+    if(str == "clamp") return ConstraintMode::Clamp;
+    if(str == "sigmoid") return ConstraintMode::Sigmoid;
+    
+    throw std::invalid_argument("Unknown constraint mode: " + str);
+}
+
+LeniaConfig loadLeniaConfig(const json& data, double spatialScale) {
     return LeniaConfig{
         data.at("dt").get<double>(),
+        constraintModeFromString(data.value("constraint", "clamp")),
         loadInteractionConfigs(data.at("interactions"), spatialScale)
     };
 }

@@ -2,10 +2,14 @@
 
 #include <cstddef>
 #include <filesystem>
+#include <memory>
 #include <optional>
 #include <string>
 #include <vector>
 
+#include "alife/constraint.hpp"
+#include "alife/constraints/clamp.hpp"
+#include "alife/constraints/sigmoid.hpp"
 #include "core/kernel.hpp"
 #include "systems/lenia/interaction.hpp"
 #include "systems/system_type.hpp"
@@ -100,8 +104,26 @@ struct InteractionConfig {
     GrowthConfig growth;
 };
 
+enum class ConstraintMode {
+    Clamp,
+    Sigmoid
+};
+
+inline std::unique_ptr<Constraint> constraintFromMode(ConstraintMode mode) {
+    switch(mode) {
+        case ConstraintMode::Clamp:
+            return std::make_unique<ClampConstraint>(0.0, 1.0);
+
+        case ConstraintMode::Sigmoid:
+            return std::make_unique<SigmoidConstraint>();
+
+        throw std::invalid_argument("Unkown constraint mode. ");
+    }
+}
+
 struct LeniaConfig {
     double dt = 1.0;
+    ConstraintMode constraintMode = ConstraintMode::Clamp;
     std::vector<InteractionConfig> interactions;
 };
 
